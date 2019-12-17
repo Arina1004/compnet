@@ -1,5 +1,9 @@
 import socket
 
+MAX_LINE = 64 * 1024
+MAX_HEADERS = 100
+
+
 HOST,PORT = '127.0.0.1',8080
 
 my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -16,6 +20,12 @@ while True:
 
     method = string_list[0]
     requesting_file = string_list[1]
+    rfile = connection.makefile('rb')
+    raw = rfile.readline(MAX_LINE + 1)
+    # req_line = str(raw, 'iso-8859-1')
+    # words = req_line.split()
+    # method, target, ver = words
+    print(raw)
 
     print('Client request ',requesting_file)
 
